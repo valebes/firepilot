@@ -100,7 +100,7 @@ impl Machine {
         self.executor.create_workspace()?;
 
         // Step 3. Copy drives into the machine workspace
-        let cpu_template = config.cpu_template.unwrap();
+        let machine = config.machine.unwrap();
         let kernel = config.kernel.unwrap();
         for drive in config.storage.iter_mut() {
             let new_drive_path = self.executor.chroot().join(&drive.drive_id);
@@ -134,7 +134,7 @@ impl Machine {
         self.executor.configure_drives(config.storage).await?;
         self.executor.configure_boot_source(kernel).await?;
         self.executor.configure_network(config.interfaces).await?;
-        self.executor.configure_machine(cpu_template).await?;
+        self.executor.configure_machine(machine).await?;
         Ok(())
     }
 

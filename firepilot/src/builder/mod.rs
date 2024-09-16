@@ -51,7 +51,7 @@
 //! ```
 use crate::executor::Executor;
 
-use firepilot_models::models::{BootSource, CpuTemplate, Drive, NetworkInterface};
+use firepilot_models::models::{BootSource, Drive, MachineConfiguration, NetworkInterface};
 
 pub mod drive;
 pub mod executor;
@@ -102,7 +102,7 @@ pub struct Configuration {
     pub kernel: Option<BootSource>,
     pub storage: Vec<Drive>,
     pub interfaces: Vec<NetworkInterface>,
-    pub cpu_template: Option<CpuTemplate>,
+    pub machine: Option<MachineConfiguration>,
 
     pub vm_id: String,
 }
@@ -114,7 +114,7 @@ impl Configuration {
             executor: None,
             storage: Vec::new(),
             interfaces: Vec::new(),
-            cpu_template: None,
+            machine: None,
             vm_id,
         }
     }
@@ -140,8 +140,8 @@ impl Configuration {
         self
     }
 
-    pub fn with_cpu_template(mut self, cpu_template: CpuTemplate) -> Configuration {
-        self.cpu_template = Some(cpu_template);
+    pub fn with_machine_config(mut self, machine: MachineConfiguration) -> Configuration {
+        self.machine = Some(machine);
         self
     }
 }
